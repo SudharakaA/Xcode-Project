@@ -9,16 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            List(sampleMenu) { item in
+                NavigationLink(destination: MenuItemDetailView(menuItem: item)) {
+                    HStack {
+                        Image(item.imageName)
+                            .resizable()
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                        VStack(alignment: .leading) {
+                            Text(item.name)
+                                .font(.headline)
+                            Text("$\(item.price, specifier: "%.2f")")
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Menu")
         }
-        .padding()
     }
 }
 
-#Preview {
-    ContentView()
-}
